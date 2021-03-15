@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: REST MF0226_3
+  description: Documentacion REST para la actividad fin de modulo MF0226_3
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/'
+    description: Servidor de Spring Boot
+    variables: {}
+paths:
+  '/libros':
+    get:
+      summary: Ver todos los libros
+      operationId: getAll
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Libro'
+    post:
+      summary: Insertar nueva reseña
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+      responses:
+        '201':
+          description: Creado
+        '400':
+           description: Petición incorrecta
+  '/libros/{id}':
+    get:
+      summary: Obtener un curso por id con todas sus reseñas
+      operationId: getById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Devuelve el libro cuyo id es el que se ha pedido junto con todas sus reseñas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Libro'
+        '404':
+          description: No encontrado
+    
+components:
+  schemas:
+    Resena:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        libros_id:
+          type: integer
+          format: int64
+    Libro:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        autor:
+          type: string 
+        resenas:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+              nombre:
+                type: string
+              libros_id:
+                type: integer
+                format: int64
+           

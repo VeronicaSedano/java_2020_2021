@@ -1,0 +1,132 @@
+openapi: 3.0.1
+info:
+  title: cursos
+  description: Examen 2 uf2177
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/'
+    description: Servidor de Spring Boot
+    variables: {}
+paths:
+  '/cursos':
+    get:
+      summary: Ver todos los cursos
+      operationId: getAll
+      responses:
+        '200':
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                type: 'array'
+                items:
+                  $ref: '#/components/schemas/Curso'
+  '/cursos/{codigo}':
+    get:
+      summary: Obtener curso por id
+      operationId: getById
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Devuelve el curso correspondiente al id que se ha pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curso'
+        '404':
+          description: No encontrado
+  '/resenias/{codigo}':      
+    put:
+      summary: Actualizar reseña por id
+      operationId: update
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resenia'
+      responses:
+        '400':
+           description: Petición incorrecta
+        '200':
+          description: Modificado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resenia'
+    delete:
+      summary: Borrar reseña por id
+      operationId: delete
+      parameters:
+        - name: codigo
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Sin contenido
+        '404':
+          description: No encontrado
+  /resenias:
+    post:
+      summary: Insertar nueva reseña
+      operationId: insert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resenia'
+      responses:
+        '201':
+          description: Creado
+        '400':
+           description: Petición incorrecta
+components:
+  schemas:
+    Resenia:
+      type: object
+      properties:
+        codigo:
+          type: long
+          format: long
+        resenia:
+          type: string
+        fecha:
+          type: string
+          format: date
+        alumno_codigo:
+          type: integer
+          format: int64
+        curso_codigo:
+          type: integer
+          format: int64
+    Curso:
+      type: object
+      properties:
+        codigo:
+          type: long
+          format: long
+        nombre:
+          type: string
+        identificador:
+          type: string       
+        nHoras:
+          type: integer
+          format: int64  
+        profesor:
+          type: string
+           

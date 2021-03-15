@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+main{
+    padding: 3%;
+}
+
+img {
+    max-width: 50%;
+}
+
+
+footer {
+    background-color: #7e55ee;
+    
+}
+
+footer a{
+    color: black !important;
+    text-decoration: none;
+}
+
+
+footer li{
+    text-decoration: none;
+    list-style: none;
+}
+
+
+/*Colores de los botones*/
+.btn{
+	background-color: #7e55ee;
+}
+
+.btn.btn-block{
+	background-color: #ffb74d;
+	border: 3px solid #ffe0b2;
+}
+
+.card{
+	border: 3px solid #ffe0b2;
+}
+
+table thead{
+	background-color: #ffb74d;
+}
+
